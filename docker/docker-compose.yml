@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: grafana-weather
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=mongodb-datasource
+      - MONGODB_URI=${MONGODB_URI}
+    restart: unless-stopped
